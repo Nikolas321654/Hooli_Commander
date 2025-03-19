@@ -1,0 +1,28 @@
+.tool-bar {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(18, 104, 190);
+  padding: 0 10px;
+  position: relative;
+}
+
+.arrows_block {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  left: 10px;
+}
+.arrow {
+  background-color: transparent;
+}
+.arrow_left {
+  transform: rotate(180deg);
+}
+.logo {
+  height: 100px;
+  background-color: transparent;
+  display: flex;
+}

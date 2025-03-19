@@ -1,0 +1,9 @@
+.panel.active {
+  border: 5px solid rgb(0, 55, 128);
+}
+
+.panel {
+  border: 5px solid rgb(55, 139, 249);
+  width: 100%;
+  min-height: 100%;
+}
