@@ -1,9 +1,21 @@
+import { serverUrl } from '../config.js';
+
 export class ApiService {
-  constructor() {
-    this.baseUrl = 'http://localhost:3000';
+  constructor() {}
+
+  get(path, queryParams) {
+    const url = new URL(path, serverUrl);
+    if (queryParams) {
+      for (const param in queryParams) {
+        url.searchParams.append(param, queryParams[param]);
+      }
+    }
+    return fetch(url).then((response) => response.json());
   }
-  get(url) {}
-  post(url, data) {}
-  put(url, data) {}
-  delete(url) {}
+
+  post(path, data) {}
+
+  put(path, data) {}
+
+  delete(path) {}
 }

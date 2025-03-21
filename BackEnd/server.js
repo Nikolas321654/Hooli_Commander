@@ -1,8 +1,11 @@
 const express = require('express');
 const fs = require('fs').promises;
 const diskInfo = require('node-disk-info');
+const cors = require('cors');
+
 const app = express();
 const PORT = 3000;
+app.use(cors());
 
 app.get('/disks', async (req, res) => {
   try {
