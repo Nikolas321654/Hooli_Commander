@@ -6,4 +6,23 @@
   border: 5px solid rgb(55, 139, 249);
   width: 100%;
   min-height: 100%;
+  display: flex;
+}
+
+.disk-button {
+  height: 40px;
+  width: 40px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(0, 0, 0);
+  font-size: 30px;
+  color: rgb(15, 57, 112);
+  border-radius: 4px;
+}
+
+.panel__disks {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  padding: 5px;
+  gap: 5px;
 }

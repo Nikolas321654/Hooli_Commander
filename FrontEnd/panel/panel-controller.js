@@ -3,7 +3,14 @@ import { PanelView } from './panel-view.js';
 
 export class PanelController {
   constructor() {
-    this.model = new PanelModel();
     this.view = new PanelView();
+    this.model = new PanelModel();
+    this.model.init().then(() => {
+      this.initView();
+    });
+  }
+
+  initView() {
+    this.view.renderDisks(this.model.disks);
   }
 }

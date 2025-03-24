@@ -1,11 +1,11 @@
 import { ApiService } from './api-service.js';
-export class ApiController {
+export class Api {
   constructor() {
-    if (ApiController.instance) {
-      return ApiController.instance;
+    if (Api.instance) {
+      return Api.instance;
     }
     this.apiService = new ApiService();
-    ApiController.instance = this;
+    Api.instance = this;
     return this;
   }
 
