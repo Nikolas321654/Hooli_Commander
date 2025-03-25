@@ -2,6 +2,7 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
 }
 
 body {
@@ -13,6 +14,5 @@ body {
   display: flex;
   flex: 1 1 auto;
   gap: 3px;
-  padding: 0 10px;
   height: 100%;
 }

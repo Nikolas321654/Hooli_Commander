@@ -7,22 +7,38 @@
   width: 100%;
   min-height: 100%;
   display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .disk-button {
   height: 40px;
   width: 40px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(168, 210, 238);
   border: 2px solid rgb(0, 0, 0);
   font-size: 30px;
-  color: rgb(15, 57, 112);
+  color: rgb(51, 122, 215);
   border-radius: 4px;
 }
 
 .panel__disks {
-  height: 30px;
   width: 100%;
   display: flex;
   padding: 5px;
   gap: 5px;
+}
+
+.panel__path {
+  background-color: rgb(79, 122, 252);
+  height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  padding: 3px;
+}
+
+.selected {
+  font-weight: 800;
+  color: rgb(0, 52, 164);
 }

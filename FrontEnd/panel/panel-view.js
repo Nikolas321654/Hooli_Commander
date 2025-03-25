@@ -10,8 +10,10 @@ export class PanelView {
         <div class="panel__content"></div>
     `;
     this.disksElement = this.panelElement.querySelector('.panel__disks');
+    this.pathElement = this.panelElement.querySelector('.panel__path');
     panels.append(this.panelElement);
   }
+
   initListeners() {}
 
   renderDisks(disks) {
@@ -23,13 +25,20 @@ export class PanelView {
     }
   }
 
-  renderPath(path) {}
+  renderSelectedDisk(index) {
+    this.disksElement.querySelector('.selected')?.classList.remove('selected');
+    this.disksElement
+      .querySelectorAll('.disk-button')
+      [index].classList.add('selected');
+  }
+
+  renderPath(path) {
+    this.pathElement.textContent = path;
+  }
 
   renderContent(content) {}
 
   renderCurrentItem(index) {}
-
-  renderSelectedDisk(index) {}
 
   emit(event, data) {}
 
