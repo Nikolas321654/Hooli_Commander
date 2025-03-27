@@ -12,9 +12,9 @@ export class PanelController {
 
   initView() {
     this.view.renderDisks(this.model.disks);
-    this.view.renderPath(this.model.path.join('>'));
+    this.view.renderPath(this.model.path.join(' > '));
     this.view.renderSelectedDisk(this.model.currentDiskIndex);
-    this.view.renderContent();
-    this.view.renderCurrentItem();
+    this.view.renderContent([...this.model.content]);
+    this.view.renderCurrentItem(0);
   }
 }
