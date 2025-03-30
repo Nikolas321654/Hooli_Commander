@@ -1,17 +1,18 @@
 const diskInfo = require('node-disk-info');
+const path = require('path');
 const fs = require('fs').promises;
 
 async function getDisks() {
   return (await diskInfo.getDiskInfo()).map((disk) => disk.mounted);
 }
 
-async function getDir(path) {
-  const data = (await fs.readdir(path, 'utf8')).map((fileName) => ({
+async function getDir(dirPath) {
+  const data = (await fs.readdir(dirPath, 'utf8')).map((fileName) => ({
     name: fileName,
   }));
 
   const stat = await Promise.allSettled(
-    data.map((file) => fs.stat(`${path}/${file.name}`))
+    data.map((file) => fs.stat(path.join(dirPath, file.name)))
   );
   for (let i = 0; i < data.length; i++) {
     if (stat[i].status === 'fulfilled') {

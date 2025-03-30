@@ -27,9 +27,7 @@
 }
 
 .panel__disks {
-  width: 100%;
   display: flex;
-  padding: 5px 0px 0px 5px;
   gap: 5px;
 }
 
@@ -76,4 +74,23 @@ tr:hover {
 .directory::before {
   content: url(/FrontEnd/img/folder.png);
   margin-right: 5px;
+}
+
+.panel__navigation {
+  display: flex;
+  gap: 5px;
+}
+
+.arrow_up::before {
+  content: url(/FrontEnd/img/arrow-up.png);
+  transform: rotate(180deg);
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.panel__buttons {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  margin: 5px 0px 0px 5px;
 }

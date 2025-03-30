@@ -22,7 +22,9 @@ app.get('/dir', async (req, res) => {
     res.send(data);
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    if (error.code === 'ENOENT') return res.status(404).send('Not found');
+    if (error.code === 'EACCES') return res.status(403).send('Access denied');
+    return res.status(500).send('Unknown error');
   }
 });
 
