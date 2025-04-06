@@ -1,5 +1,6 @@
 export class PanelView {
   constructor() {
+    this.events = {};
     const panels = document.querySelector('.panels');
     this.currentItemIndex = 0;
     this.panelElement = document.createElement('div');
@@ -28,7 +29,13 @@ export class PanelView {
     this.pathElement = this.panelElement.querySelector('.panel__path');
     this.panelContent = this.panelElement.querySelector('.panel__table');
     this.panelBody = this.panelElement.querySelector('.panel__body');
+    this.panelButtons = this.panelElement.querySelector('.panel__buttons');
+    this.buttonRoot = this.panelElement.querySelector('.disk-button__root');
+    this.buttonUp = this.panelElement.querySelector('.disk-button__up');
+    this.panelNavigation =
+      this.panelElement.querySelector('.panel__navigation');
     panels.append(this.panelElement);
+    this.initListeners();
   }
 
   formatDate(date) {
@@ -48,19 +55,6 @@ export class PanelView {
       content[i].index = i;
     }
 
-    content.sort((a, b) => {
-      if (a.isDirectory && !b.isDirectory) return -1;
-      if (b.isDirectory && !a.isDirectory) return 1;
-      return a.name.localeCompare(b.name);
-    });
-
-    if (this.path.length > 1) {
-      content = [
-        { name: '..', size: '<DIR>', date: '', isDirectory: true },
-        ...content,
-      ];
-    }
-
     this.panelBody.innerHTML = '';
     for (const item of content) {
       const row = document.createElement('tr');
@@ -72,9 +66,6 @@ export class PanelView {
       cellDate.textContent = this.formatDate(item.date);
       row.dataset.index = item.index;
       cellName.classList.add(item.isDirectory ? 'directory' : 'file');
-      if (item.name === '..') {
-        cellName.classList.add('arrow_up');
-      }
       row.append(cellName, cellSize, cellDate);
       this.panelBody.append(row);
     }
@@ -82,10 +73,12 @@ export class PanelView {
 
   renderDisks(disks) {
     this.panelDisks.innerHTML = '';
-    for (const disk of disks) {
+    for (let i = 0; i < disks.length; i++) {
+      const disk = disks[i];
       const diskButton = document.createElement('button');
       diskButton.textContent = disk[0];
       diskButton.classList.add('disk-button');
+      diskButton.dataset.index = i;
       this.panelDisks.append(diskButton);
     }
   }
@@ -109,9 +102,38 @@ export class PanelView {
     this.path = path;
   }
 
-  initListeners() {}
+  on(eventName, callback) {
+    this.events[eventName] = callback;
+  }
 
-  emit(event, data) {}
+  emit(eventName, data) {
+    const callback = this.events[eventName];
+    if (callback) callback(...data);
+  }
 
-  on(event, callback) {}
+  initListeners() {
+    this.panelDisks.addEventListener('click', (event) => {
+      const index = event.target.dataset.index;
+      if (!index) return;
+      this.emit('changeDisk', [+index]);
+    });
+
+    this.buttonRoot.addEventListener('click', (event) => {
+      console.log('buttonRoot');
+    });
+
+    this.buttonUp.addEventListener('click', (event) => {
+      console.log('buttonUp');
+    });
+
+    this.panelBody.addEventListener('click', this.onContentClick.bind(this));
+  }
+
+  onContentClick(event) {
+    this.panelBody
+      .querySelector('.selected__row')
+      ?.classList.remove('selected__row');
+    this.currentItemIndex = +event.target.parentElement.dataset.index;
+    event.target.parentElement.classList.add('selected__row');
+  }
 }

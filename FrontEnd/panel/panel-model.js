@@ -12,9 +12,30 @@ export class PanelModel {
 
   async init() {
     this.disks = await this.api.disks();
-    this.content = await this.api.dir(this.disks[this.currentDiskIndex]);
-    this.path = [this.disks[this.currentDiskIndex]];
+    await this.changeDisk(0);
   }
 
-  async setDisks() {}
+  async getContent(path) {
+    const requestPath = [...path];
+    if (path.length === 1) requestPath[0] = path[0] + '/';
+    this.content = (await this.api.dir(requestPath.join('/'))).sort((a, b) => {
+      if (a.isDirectory && !b.isDirectory) return -1;
+      if (b.isDirectory && !a.isDirectory) return 1;
+      return a.name.localeCompare(b.name);
+    });
+
+    if (this.path.length > 1) {
+      this.content = [
+        { name: '..', size: '<DIR>', date: '', isDirectory: true },
+        ...content,
+      ];
+    }
+
+    this.path = path;
+  }
+
+  async changeDisk(index) {
+    await this.getContent([this.disks[index]]);
+    this.currentDiskIndex = index;
+  }
 }
