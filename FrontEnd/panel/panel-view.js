@@ -65,7 +65,7 @@ export class PanelView {
       cellSize.textContent = item.isDirectory ? '<DIR>' : item.size;
       cellDate.textContent = this.formatDate(item.date);
       row.dataset.index = item.index;
-      cellName.classList.add(item.isDirectory ? 'directory' : 'file');
+      row.classList.add(item.isDirectory ? 'directory' : 'file');
       row.append(cellName, cellSize, cellDate);
       this.panelBody.append(row);
     }
@@ -98,7 +98,7 @@ export class PanelView {
   }
 
   renderPath(path) {
-    this.pathElement.textContent = path.join(' > ');
+    this.pathElement.textContent = path.join(' / ');
     this.path = path;
   }
 
@@ -106,25 +106,28 @@ export class PanelView {
     this.events[eventName] = callback;
   }
 
-  emit(eventName, data) {
+  emit(eventName, ...data) {
     const callback = this.events[eventName];
     if (callback) callback(...data);
   }
 
   initListeners() {
     this.panelDisks.addEventListener('click', (event) => {
-      const index = event.target.dataset.index;
+      const index = +event.target.dataset.index;
       if (!index) return;
-      this.emit('changeDisk', [+index]);
+      this.emit('changeDisk', index);
     });
 
-    this.buttonRoot.addEventListener('click', (event) => {
-      console.log('buttonRoot');
+    this.buttonRoot.addEventListener('click', () => {
+      const index = +this.panelDisks.querySelector('.selected').dataset.index;
+      this.emit('rootClick', index);
     });
 
-    this.buttonUp.addEventListener('click', (event) => {
-      console.log('buttonUp');
+    this.buttonUp.addEventListener('click', () => {
+      this.emit('upClick');
     });
+
+    this.panelBody.addEventListener('dblclick', this.onDblClick.bind(this));
 
     this.panelBody.addEventListener('click', this.onContentClick.bind(this));
   }
@@ -134,6 +137,13 @@ export class PanelView {
       .querySelector('.selected__row')
       ?.classList.remove('selected__row');
     this.currentItemIndex = +event.target.parentElement.dataset.index;
+    if (event.target.tagName !== 'TD') return;
     event.target.parentElement.classList.add('selected__row');
+    event.stopPropagation();
+  }
+
+  onDblClick(event) {
+    const index = +event.target.parentElement.dataset.index;
+    this.emit('openContentItem', index);
   }
 }

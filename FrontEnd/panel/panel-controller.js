@@ -25,9 +25,15 @@ export class PanelController {
 
   initCallbacks() {
     this.view.on('changeDisk', this.changeDisk.bind(this));
-    this.view.on('changeDirectory', this.changeDirectory.bind(this));
-    this.view.on('up', this.upClick.bind(this));
-    this.view.on('root', this.rootClick.bind(this));
+    this.view.on('openContentItem', this.openContentItem.bind(this));
+    this.view.on('upClick', this.upClick.bind(this));
+    this.view.on('rootClick', this.rootClick.bind(this));
+  }
+
+  async openContentItem(index) {
+    await this.model.changeDirectory(index);
+    this.view.renderPath(this.model.path);
+    this.view.renderContent([...this.model.content]);
   }
 
   async changeDisk(index) {
@@ -35,15 +41,16 @@ export class PanelController {
     this.renderDiskContent();
   }
 
-  changeDirectory(index) {
-    console.log('changeDirectory', index);
+  async upClick() {
+    if (this.model.isRoot()) return;
+    await this.model.upDirectory();
+    this.view.renderPath(this.model.path);
+    this.view.renderContent([...this.model.content]);
   }
 
-  upClick(index) {
-    console.log('up', index);
-  }
-
-  rootClick(index) {
-    console.log('root', index);
+  async rootClick(index) {
+    if (this.model.isRoot()) return;
+    await this.model.changeDisk(index);
+    this.renderDiskContent();
   }
 }

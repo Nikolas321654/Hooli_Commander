@@ -5,7 +5,6 @@
 .panel {
   border: 5px solid rgb(55, 139, 249);
   width: 100%;
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -64,14 +63,20 @@ tr:hover {
 
 .panel__table {
   font-size: 21px;
+  overflow: hidden;
+  user-select: none;
 }
 
-.file::before {
+.panel__body {
+  overflow: auto;
+}
+
+.file td:first-child::before {
   content: url(/FrontEnd/img/file.png);
   margin-right: 5px;
 }
 
-.directory::before {
+.directory td:first-child::before {
   content: url(/FrontEnd/img/folder.png);
   margin-right: 5px;
 }

@@ -24,14 +24,36 @@ export class PanelModel {
       return a.name.localeCompare(b.name);
     });
 
-    if (this.path.length > 1) {
+    if (path.length > 1) {
       this.content = [
         { name: '..', size: '<DIR>', date: '', isDirectory: true },
-        ...content,
+        ...this.content,
       ];
     }
 
     this.path = path;
+  }
+
+  async changeDirectory(index) {
+    const newPath = [...this.path];
+    if (!this.content[index].isDirectory) return;
+
+    if (this.content[index].name !== '..') {
+      newPath.push(this.content[index].name);
+    } else {
+      newPath.pop();
+    }
+    await this.getContent(newPath);
+  }
+
+  async upDirectory() {
+    const path = [...this.path];
+    path.pop();
+    await this.getContent(path);
+  }
+
+  isRoot() {
+    return this.path.length === 1;
   }
 
   async changeDisk(index) {
