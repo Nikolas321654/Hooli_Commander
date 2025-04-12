@@ -19,7 +19,7 @@ http
         res.end(JSON.stringify(disks));
         return;
       } catch (error) {
-        console.log(error);
+        console.error(error);
         res.statusCode = 500;
         res.end(error.message);
         return;
@@ -32,7 +32,7 @@ http
         const data = await getDir(path);
         res.end(JSON.stringify(data));
       } catch (error) {
-        console.log(error);
+        console.error(error);
         if (error.code === 'ENOENT') {
           res.statusCode = 404;
           res.end('Not found');

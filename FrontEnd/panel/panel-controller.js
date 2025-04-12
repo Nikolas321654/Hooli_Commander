@@ -2,8 +2,8 @@ import { PanelModel } from './panel-model.js';
 import { PanelView } from './panel-view.js';
 
 export class PanelController {
-  constructor() {
-    this.view = new PanelView();
+  constructor(index) {
+    this.view = new PanelView(index);
     this.model = new PanelModel();
     this.model.init().then(() => {
       this.initView();

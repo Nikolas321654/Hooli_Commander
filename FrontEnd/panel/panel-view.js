@@ -1,10 +1,11 @@
 export class PanelView {
-  constructor() {
+  constructor(index) {
     this.events = {};
     const panels = document.querySelector('.panels');
     this.currentItemIndex = 0;
     this.panelElement = document.createElement('div');
     this.panelElement.classList.add('panel');
+    this.panelElement.dataset.index = index;
     this.panelElement.innerHTML = `
       <div class="panel__buttons">
         <div class="panel__disks"></div>
@@ -27,7 +28,6 @@ export class PanelView {
     `;
     this.panelDisks = this.panelElement.querySelector('.panel__disks');
     this.pathElement = this.panelElement.querySelector('.panel__path');
-    this.panelContent = this.panelElement.querySelector('.panel__table');
     this.panelBody = this.panelElement.querySelector('.panel__body');
     this.panelButtons = this.panelElement.querySelector('.panel__buttons');
     this.buttonRoot = this.panelElement.querySelector('.disk-button__root');
@@ -113,8 +113,8 @@ export class PanelView {
 
   initListeners() {
     this.panelDisks.addEventListener('click', (event) => {
+      if (!event.target.dataset.index) return;
       const index = +event.target.dataset.index;
-      if (!index) return;
       this.emit('changeDisk', index);
     });
 
