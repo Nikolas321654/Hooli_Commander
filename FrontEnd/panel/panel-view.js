@@ -84,17 +84,20 @@ export class PanelView {
   }
 
   renderSelectedDisk(index) {
-    this.panelDisks.querySelector('.selected')?.classList.remove('selected');
+    this.panelDisks
+      .querySelector('.disk-button_selected')
+      ?.classList.remove('disk-button_selected');
     this.panelDisks
       .querySelectorAll('.disk-button')
-      [index].classList.add('selected');
+      [index].classList.add('disk-button_selected');
   }
 
   renderCurrentItem(index) {
+    this.currentItemIndex = index;
     this.panelBody
-      .querySelector('.selected__row')
-      ?.classList.remove('selected__row');
-    this.panelBody.querySelectorAll('tr')[index].classList.add('selected__row');
+      .querySelector('.row_selected')
+      ?.classList.remove('row_selected');
+    this.panelBody.querySelectorAll('tr')[index].classList.add('row_selected');
   }
 
   renderPath(path) {
@@ -119,7 +122,8 @@ export class PanelView {
     });
 
     this.buttonRoot.addEventListener('click', () => {
-      const index = +this.panelDisks.querySelector('.selected').dataset.index;
+      const index = +this.panelDisks.querySelector('.disk-button_selected')
+        .dataset.index;
       this.emit('rootClick', index);
     });
 
@@ -128,18 +132,16 @@ export class PanelView {
     });
 
     this.panelBody.addEventListener('dblclick', this.onDblClick.bind(this));
-
     this.panelBody.addEventListener('click', this.onContentClick.bind(this));
   }
 
   onContentClick(event) {
     this.panelBody
-      .querySelector('.selected__row')
-      ?.classList.remove('selected__row');
+      .querySelector('.row_selected')
+      ?.classList.remove('row_selected');
     this.currentItemIndex = +event.target.parentElement.dataset.index;
     if (event.target.tagName !== 'TD') return;
-    event.target.parentElement.classList.add('selected__row');
-    event.stopPropagation();
+    event.target.parentElement.classList.add('row_selected');
   }
 
   onDblClick(event) {

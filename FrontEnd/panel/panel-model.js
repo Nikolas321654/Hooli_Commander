@@ -38,18 +38,21 @@ export class PanelModel {
     const newPath = [...this.path];
     if (!this.content[index].isDirectory) return;
 
+    let parentDir = '';
     if (this.content[index].name !== '..') {
       newPath.push(this.content[index].name);
     } else {
-      newPath.pop();
+      parentDir = newPath.pop();
     }
     await this.getContent(newPath);
+    return parentDir;
   }
 
   async upDirectory() {
     const path = [...this.path];
-    path.pop();
+    const parentDir = path.pop();
     await this.getContent(path);
+    return parentDir;
   }
 
   isRoot() {

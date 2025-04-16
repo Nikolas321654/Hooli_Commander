@@ -9,16 +9,41 @@ export class AppController {
   }
 
   init() {
-    this.view.on('setActivePanel', (index) => this.setPanelIndex(index));
+    this.view.on('panelClick', this.onPanelClick.bind(this));
+    document.addEventListener('keydown', this.onKeyDown.bind(this));
   }
 
-  setPanelIndex(index) {}
+  onKeyDown(event) {
+    if (event.code === 'Tab') {
+      event.preventDefault();
+      this.switchActivePanel();
+      return;
+    }
+    const keys = [
+      'Enter',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'Backspace',
+    ];
+    if (keys.includes(event.code)) {
+      event.preventDefault();
+      this.sendPanelKeyDown(event.code);
+    }
+  }
 
-  switchActivePanel(event) {}
+  sendPanelKeyDown(key) {
+    if (!key) return;
+    this.model.panels[this.model.activePanelIndex].keyDown(key);
+  }
 
-  sendPanelEvent(event) {}
+  switchActivePanel() {
+    this.model.switchActivePanel();
+    this.view.renderActivePanel(this.model.activePanelIndex);
+  }
 
-  onKeyDown(event) {}
-
-  onPanelClick(event) {}
+  onPanelClick(index) {
+    this.model.setActivePanel(index);
+  }
 }

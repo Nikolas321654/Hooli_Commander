@@ -16,11 +16,15 @@ export class PanelController {
     this.renderDiskContent();
   }
 
-  renderDiskContent() {
+  updateView() {
     this.view.renderPath(this.model.path);
-    this.view.renderSelectedDisk(this.model.currentDiskIndex);
     this.view.renderContent([...this.model.content]);
     this.view.renderCurrentItem(0);
+  }
+
+  renderDiskContent() {
+    this.view.renderSelectedDisk(this.model.currentDiskIndex);
+    this.updateView();
   }
 
   initCallbacks() {
@@ -30,10 +34,21 @@ export class PanelController {
     this.view.on('rootClick', this.rootClick.bind(this));
   }
 
+  setCurrentItem(dirName) {
+    if (dirName) {
+      const index = this.model.content.findIndex(
+        (item) => item.name === dirName
+      );
+      if (index !== -1) {
+        this.view.renderCurrentItem(index);
+      }
+    }
+  }
+
   async openContentItem(index) {
-    await this.model.changeDirectory(index);
-    this.view.renderPath(this.model.path);
-    this.view.renderContent([...this.model.content]);
+    const parentDir = await this.model.changeDirectory(index);
+    this.updateView();
+    this.setCurrentItem(parentDir);
   }
 
   async changeDisk(index) {
@@ -43,14 +58,61 @@ export class PanelController {
 
   async upClick() {
     if (this.model.isRoot()) return;
-    await this.model.upDirectory();
-    this.view.renderPath(this.model.path);
-    this.view.renderContent([...this.model.content]);
+    const parentDir = await this.model.upDirectory();
+    this.updateView();
+    this.setCurrentItem(parentDir);
   }
 
   async rootClick(index) {
     if (this.model.isRoot()) return;
     await this.model.changeDisk(index);
-    this.renderDiskContent();
+    this.renderDiskContent(0);
+  }
+
+  onEnter() {
+    const index = this.view.currentItemIndex;
+    this.openContentItem(index);
+  }
+
+  onArrowUp() {
+    let index = this.view.currentItemIndex;
+    if (index === 0) return;
+    index -= 1;
+    this.view.renderCurrentItem(index);
+  }
+
+  saveUpIndex() {
+    this.view.renderCurrentItem(0);
+  }
+
+  onArrowDown() {
+    let index = this.view.currentItemIndex;
+    if (index === this.model.content.length - 1) return;
+    index += 1;
+    this.view.renderCurrentItem(index);
+  }
+
+  onArrowLeft() {
+    this.view.renderCurrentItem(0);
+  }
+
+  onArrowRight() {
+    this.view.renderCurrentItem(this.model.content.length - 1);
+  }
+
+  onBackspace() {
+    this.upClick();
+  }
+
+  keyDown(key) {
+    const callbacks = {
+      Enter: this.onEnter,
+      ArrowUp: this.onArrowUp,
+      ArrowDown: this.onArrowDown,
+      ArrowLeft: this.onArrowLeft,
+      ArrowRight: this.onArrowRight,
+      Backspace: this.onBackspace,
+    };
+    callbacks[key]?.call(this);
   }
 }

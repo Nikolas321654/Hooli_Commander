@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  overflow: auto;
 }
 
 .disk-button {
@@ -40,7 +41,7 @@
   padding: 3px;
 }
 
-.selected {
+.disk-button_selected {
   font-weight: 800;
   color: rgb(0, 52, 164);
 }
@@ -49,7 +50,7 @@
   background-color: rgb(142, 172, 255);
 }
 
-.selected__row {
+.panel_active .row_selected {
   background-color: rgb(163, 206, 251);
 }
 
@@ -58,17 +59,12 @@ tr {
 }
 
 tr:hover {
-  background-color: rgb(163, 206, 251);
+  background-color: rgb(206, 230, 255);
 }
 
 .panel__table {
   font-size: 21px;
-  overflow: hidden;
   user-select: none;
-}
-
-.panel__body {
-  overflow: auto;
 }
 
 .file td:first-child::before {
@@ -98,4 +94,8 @@ tr:hover {
   width: 100%;
   gap: 20px;
   margin: 5px 0px 0px 5px;
+}
+
+thead {
+  pointer-events: none;
 }
