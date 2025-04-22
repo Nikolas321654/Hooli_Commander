@@ -1,80 +1,149 @@
-.panel.active {
-  border: 5px solid rgb(0, 55, 128);
+.panel.panel_active {
+  border-color: rgba(141, 211, 236, 1);
 }
 
 .panel {
-  border: 5px solid rgb(55, 139, 249);
+  border: 5px solid rgba(217, 238, 251, 1);
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  overflow: auto;
+  overflow: hidden;
 }
 
-.disk-button {
-  height: 30px;
-  width: 30px;
-  background-color: rgb(168, 210, 238);
-  border: 2px solid rgb(0, 0, 0);
-  font-size: 20px;
-  color: rgb(51, 122, 215);
-  border-radius: 4px;
-}
-
-.disk-button:hover {
-  background-color: rgb(0, 115, 192);
-  color: aliceblue;
-}
-
-.panel__disks {
-  display: flex;
-  gap: 5px;
-}
-
-.panel__path {
-  background-color: rgb(79, 122, 252);
-  height: 30px;
+.file-name {
   width: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  padding: 3px;
-}
-
-.disk-button_selected {
-  font-weight: 800;
-  color: rgb(0, 52, 164);
-}
-
-.file-info {
-  background-color: rgb(142, 172, 255);
-}
-
-.panel_active .row_selected {
-  background-color: rgb(163, 206, 251);
-}
-
-tr {
-  cursor: pointer;
-}
-
-tr:hover {
-  background-color: rgb(206, 230, 255);
 }
 
 .panel__table {
   font-size: 21px;
   user-select: none;
+  overflow: auto;
+  display: block;
+  height: 100%;
+  margin: 10px;
+  border-collapse: collapse;
 }
 
-.file td:first-child::before {
+.panel__table thead {
+  pointer-events: none;
+  position: sticky;
+  top: 0;
+}
+
+thead {
+  text-align: left;
+  z-index: 2;
+}
+
+.disk-button {
+  height: 30px;
+  width: 30px;
+  background-color: rgba(217, 238, 251, 1);
+  font-size: 20px;
+  color: black;
+  border-radius: 4px;
+}
+
+.disk-button:hover {
+  background-color: rgba(141, 211, 236, 1);
+  color: black;
+}
+
+.panel__disks {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.panel__path {
+  background-color: rgba(217, 238, 251, 1);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 2px solid rgba(141, 211, 236, 1);
+  padding: 5px;
+}
+
+.panel__path-wrap {
+  padding: 0 10px;
+}
+
+.disk-button_selected {
+  background-color: rgba(141, 211, 236, 1);
+  color: black;
+}
+
+.file-info {
+  width: 100%;
+}
+
+.panel_active .row_selected {
+  background-color: rgba(217, 238, 251, 1);
+}
+
+tr {
+  cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
+}
+
+td,
+th {
+  padding: 3px;
+  font-weight: 400;
+}
+
+th {
+  padding-bottom: 10px;
+}
+
+td:not(:first-child) {
+  padding-right: 40px;
+}
+
+th:not(:first-child),
+td:not(:first-child) {
+  padding-left: 7px;
+}
+
+th:not(:first-child) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 80%;
+    width: 2px;
+    background-color: #747474;
+  }
+}
+
+th {
+  background-color: rgb(245, 251, 255);
+}
+
+tr:hover {
+  background-color: rgb(230, 248, 254);
+}
+
+.row_file td:first-child::before {
   content: url(/FrontEnd/img/file.png);
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-left: 5px;
+  position: relative;
+  top: 2px;
 }
 
-.directory td:first-child::before {
+.row_directory td:first-child::before {
   content: url(/FrontEnd/img/folder.png);
   margin-right: 5px;
+  position: relative;
+  top: 2px;
 }
 
 .panel__navigation {
@@ -93,9 +162,15 @@ tr:hover {
   display: flex;
   width: 100%;
   gap: 20px;
-  margin: 5px 0px 0px 5px;
+  padding: 10px;
 }
 
-thead {
-  pointer-events: none;
+.panel__table::-webkit-scrollbar {
+  background-color: rgba(217, 238, 251, 1);
+  border: 2px solid rgba(141, 211, 236, 1);
+}
+
+.panel__table::-webkit-scrollbar-thumb {
+  background-color: rgb(103, 174, 219);
+  border: 2px solid rgba(141, 211, 236, 1);
 }

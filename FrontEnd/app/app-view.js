@@ -28,8 +28,13 @@ export class AppView {
   }
 
   renderActivePanel(index) {
-    this.panels.querySelector('.panel_active').classList.remove('panel_active');
-    this.panels.querySelectorAll('.panel')[index].classList.add('panel_active');
+    const panel = this.panels.querySelectorAll('.panel')[index];
+    if (!panel.classList.contains('panel_active')) {
+      this.panels
+        .querySelector('.panel_active')
+        .classList.remove('panel_active');
+      panel.classList.add('panel_active');
+    }
     this.emit('panelClick', index);
   }
 }

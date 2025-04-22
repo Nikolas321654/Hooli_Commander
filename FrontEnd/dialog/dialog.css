@@ -1,0 +1,38 @@
+dialog {
+  padding: 25px 60px 25px 60px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 27px;
+  border-radius: 5px;
+  display: flex;
+  text-align: center;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(217, 238, 251, 1);
+  border: 1px solid rgba(141, 211, 236, 1);
+  gap: 20px;
+}
+
+dialog div {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.dialog-close {
+  background-color: rgba(141, 211, 236, 1);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  width: fit-content;
+  line-height: 1;
+  transition: all 200ms;
+}
+
+.dialog-close:hover {
+  background-color: rgb(81, 188, 226);
+}

@@ -1,5 +1,6 @@
 import { PanelModel } from './panel-model.js';
 import { PanelView } from './panel-view.js';
+import { showDialog } from '../dialog/dialog.js';
 
 export class PanelController {
   constructor(index) {
@@ -46,9 +47,14 @@ export class PanelController {
   }
 
   async openContentItem(index) {
-    const parentDir = await this.model.changeDirectory(index);
-    this.updateView();
-    this.setCurrentItem(parentDir);
+    if (!this.model.content[index].isDirectory) return;
+    try {
+      const parentDir = await this.model.changeDirectory(index);
+      this.updateView();
+      this.setCurrentItem(parentDir);
+    } catch (error) {
+      showDialog(error.message);
+    }
   }
 
   async changeDisk(index) {
@@ -74,15 +80,15 @@ export class PanelController {
     this.openContentItem(index);
   }
 
+  saveUpIndex() {
+    this.view.renderCurrentItem(0);
+  }
+
   onArrowUp() {
     let index = this.view.currentItemIndex;
     if (index === 0) return;
     index -= 1;
     this.view.renderCurrentItem(index);
-  }
-
-  saveUpIndex() {
-    this.view.renderCurrentItem(0);
   }
 
   onArrowDown() {

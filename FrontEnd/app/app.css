@@ -1,22 +1,21 @@
 .wrapper {
   min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
+  background-color: rgba(217, 238, 251, 1);
 }
 
 body {
-  background-color: rgb(230, 243, 255);
+  background-color: rgba(245, 251, 255, 1);
   height: 100%;
+  font-family: 'Arial';
 }
 
 .panels {
   display: flex;
   flex: 1 1 auto;
-  gap: 3px;
   height: 100%;
-}
-
-.panel_active {
-  border: 4px solid rgb(14, 0, 204);
+  overflow: hidden;
+  background-color: #f5fbff;
 }

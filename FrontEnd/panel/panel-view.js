@@ -14,7 +14,9 @@ export class PanelView {
           <button class="disk-button disk-button__up">..</button>
         </div>
       </div> 
-      <div class="panel__path"></div>
+      <div class="panel__path-wrap">
+        <div class="panel__path"></div>
+      </div>
       <table class="panel__table">
         <thead>
           <tr class="file-info">
@@ -30,8 +32,11 @@ export class PanelView {
     this.pathElement = this.panelElement.querySelector('.panel__path');
     this.panelBody = this.panelElement.querySelector('.panel__body');
     this.panelButtons = this.panelElement.querySelector('.panel__buttons');
+    this.panelTable = this.panelElement.querySelector('.panel__table');
     this.buttonRoot = this.panelElement.querySelector('.disk-button__root');
     this.buttonUp = this.panelElement.querySelector('.disk-button__up');
+    this.itemFile = this.panelElement.querySelector('.row_file');
+    this.thead = this.panelElement.querySelector('thead');
     this.panelNavigation =
       this.panelElement.querySelector('.panel__navigation');
     panels.append(this.panelElement);
@@ -62,10 +67,11 @@ export class PanelView {
       const cellSize = document.createElement('td');
       const cellDate = document.createElement('td');
       cellName.textContent = item.isDirectory ? `[${item.name}]` : item.name;
-      cellSize.textContent = item.isDirectory ? '<DIR>' : item.size;
+      cellSize.textContent = item.isDirectory ? 'DIR' : item.size;
       cellDate.textContent = this.formatDate(item.date);
       row.dataset.index = item.index;
-      row.classList.add(item.isDirectory ? 'directory' : 'file');
+      row.classList.add('row');
+      row.classList.add(item.isDirectory ? 'row_directory' : 'row_file');
       row.append(cellName, cellSize, cellDate);
       this.panelBody.append(row);
     }
@@ -98,10 +104,30 @@ export class PanelView {
       .querySelector('.row_selected')
       ?.classList.remove('row_selected');
     this.panelBody.querySelectorAll('tr')[index].classList.add('row_selected');
+    this.scrollToCurrentItem();
+  }
+
+  scrollToCurrentItem() {
+    if (this.panelTable.clientHeight === this.panelTable.scrollHeight) return;
+    const selectedItem = this.panelElement.querySelector('.row_selected');
+    const elementRect = selectedItem.getBoundingClientRect();
+    const panelRect = this.panelTable.getBoundingClientRect();
+    const panelHeaderPositionBottom = this.thead.getBoundingClientRect().bottom;
+    const elementPositionBottom = elementRect.bottom;
+    const elementPositionTop = elementRect.top;
+    const scrollBarWidth =
+      this.panelTable.clientWidth < this.panelTable.scrollWidth ? 15 : 0;
+    if (elementPositionBottom > panelRect.bottom - scrollBarWidth) {
+      this.panelTable.scrollTop -=
+        panelRect.bottom - elementPositionBottom - scrollBarWidth;
+    } else if (elementPositionTop < panelHeaderPositionBottom) {
+      this.panelTable.scrollTop +=
+        elementPositionTop - panelHeaderPositionBottom;
+    }
   }
 
   renderPath(path) {
-    this.pathElement.textContent = path.join(' / ');
+    this.pathElement.textContent = path.join('/');
     this.path = path;
   }
 
@@ -136,11 +162,11 @@ export class PanelView {
   }
 
   onContentClick(event) {
+    if (event.target.tagName !== 'TD') return;
     this.panelBody
       .querySelector('.row_selected')
       ?.classList.remove('row_selected');
     this.currentItemIndex = +event.target.parentElement.dataset.index;
-    if (event.target.tagName !== 'TD') return;
     event.target.parentElement.classList.add('row_selected');
   }
 

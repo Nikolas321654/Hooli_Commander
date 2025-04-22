@@ -4,14 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(18, 104, 190);
+  background-color: rgba(217, 238, 251, 1);
   padding: 0 10px;
   position: relative;
 }
 
 .arrows_block {
   display: flex;
-  gap: 10px;
+  gap: 23px;
   position: absolute;
   left: 10px;
 }
