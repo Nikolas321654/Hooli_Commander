@@ -1,3 +1,20 @@
+@keyframes dialog-animation {
+  0% {
+    top: 0%;
+    left: 50%;
+    opacity: 0;
+  }
+  50% {
+    border-radius: 10px;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+  }
+}
+
 dialog {
   padding: 25px 60px 25px 60px;
   position: fixed;
@@ -14,6 +31,8 @@ dialog {
   background-color: rgba(217, 238, 251, 1);
   border: 1px solid rgba(141, 211, 236, 1);
   gap: 20px;
+  animation-fill-mode: forwards;
+  animation: dialog-animation 0.9s;
 }
 
 dialog div {
@@ -26,7 +45,7 @@ dialog div {
 .dialog-close {
   background-color: rgba(141, 211, 236, 1);
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 20px;
   width: fit-content;
   line-height: 1;

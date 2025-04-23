@@ -4,3 +4,15 @@
 @import url('app/app.css');
 @import url('action-bar/action-bar.css');
 @import url('./dialog/dialog.css');
+
+*::-webkit-scrollbar {
+  background-color: rgba(217, 238, 251, 1);
+  border: 2px solid rgba(141, 211, 236, 1);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(103, 174, 219);
+  border: 2px solid rgba(141, 211, 236, 1);
+  border-radius: 10px;
+}

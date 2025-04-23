@@ -58,17 +58,22 @@ thead {
 
 .panel__path {
   background-color: rgba(217, 238, 251, 1);
-  width: 100%;
   display: flex;
   align-items: center;
   font-size: 18px;
   border-radius: 5px;
   border: 2px solid rgba(141, 211, 236, 1);
   padding: 5px;
+  white-space: nowrap;
+  min-width: fit-content;
+  margin-bottom: 10px;
 }
 
 .panel__path-wrap {
-  padding: 0 10px;
+  margin: 0 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
 }
 
 .disk-button_selected {
@@ -163,14 +168,4 @@ tr:hover {
   width: 100%;
   gap: 20px;
   padding: 10px;
-}
-
-.panel__table::-webkit-scrollbar {
-  background-color: rgba(217, 238, 251, 1);
-  border: 2px solid rgba(141, 211, 236, 1);
-}
-
-.panel__table::-webkit-scrollbar-thumb {
-  background-color: rgb(103, 174, 219);
-  border: 2px solid rgba(141, 211, 236, 1);
 }

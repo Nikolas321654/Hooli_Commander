@@ -1,10 +1,10 @@
 import { serverUrl } from '../config.js';
-import { AccessDeniedError, NotFoundError } from '../error.js';
+import { AccessDeniedError, NotFoundError, UnknownError } from '../error.js';
 
 const errors = {
   400: AccessDeniedError,
   404: NotFoundError,
-  500: AccessDeniedError,
+  500: UnknownError,
 };
 
 export class ApiService {

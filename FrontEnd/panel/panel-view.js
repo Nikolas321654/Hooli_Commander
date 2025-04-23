@@ -60,6 +60,15 @@ export class PanelView {
       content[i].index = i;
     }
 
+    const formatFileSize = (itemSize, pow, dimension) => {
+      const size = itemSize / Math.pow(2, pow);
+      let newSize = size.toFixed(1);
+      if (newSize.endsWith('.0')) {
+        newSize = newSize.slice(0, -2);
+      }
+      return `${newSize} ${dimension}`;
+    };
+
     this.panelBody.innerHTML = '';
     for (const item of content) {
       const row = document.createElement('tr');
@@ -67,7 +76,22 @@ export class PanelView {
       const cellSize = document.createElement('td');
       const cellDate = document.createElement('td');
       cellName.textContent = item.isDirectory ? `[${item.name}]` : item.name;
-      cellSize.textContent = item.isDirectory ? 'DIR' : item.size;
+      if (item.isDirectory) {
+        cellSize.textContent = 'DIR';
+      } else {
+        let itemSize = item.size || '';
+        if (itemSize) {
+          if (itemSize < 1e3) {
+            cellSize.textContent = `${itemSize} B`;
+          } else if (itemSize < 1e6) {
+            cellSize.textContent = formatFileSize(itemSize, 10, 'kB');
+          } else if (itemSize < 1e9) {
+            cellSize.textContent = formatFileSize(itemSize, 20, 'MB');
+          } else {
+            cellSize.textContent = formatFileSize(itemSize, 30, 'GB');
+          }
+        }
+      }
       cellDate.textContent = this.formatDate(item.date);
       row.dataset.index = item.index;
       row.classList.add('row');
