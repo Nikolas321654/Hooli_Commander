@@ -150,9 +150,18 @@ export class PanelView {
     }
   }
 
+  scrollPath() {
+    const pathWrapper = this.panelElement.querySelector('.panel__path-wrap');
+    if (pathWrapper.scrollWidth > pathWrapper.clientWidth) {
+      pathWrapper.scrollLeft =
+        pathWrapper.scrollWidth - pathWrapper.clientWidth;
+    }
+  }
+
   renderPath(path) {
     this.pathElement.textContent = path.join('/');
     this.path = path;
+    this.scrollPath();
   }
 
   on(eventName, callback) {

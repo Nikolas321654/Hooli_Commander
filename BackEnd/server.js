@@ -36,7 +36,7 @@ http
         if (error.code === 'ENOENT') {
           res.statusCode = 404;
           res.end('Not found');
-        } else if (error.code === 'EACCES') {
+        } else if (error.code === 'EACCES' || error.code === 'EPERM') {
           res.statusCode = 403;
           res.end('Access denied');
         } else {

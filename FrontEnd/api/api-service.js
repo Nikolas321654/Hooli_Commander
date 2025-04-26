@@ -2,7 +2,7 @@ import { serverUrl } from '../config.js';
 import { AccessDeniedError, NotFoundError, UnknownError } from '../error.js';
 
 const errors = {
-  400: AccessDeniedError,
+  403: AccessDeniedError,
   404: NotFoundError,
   500: UnknownError,
 };

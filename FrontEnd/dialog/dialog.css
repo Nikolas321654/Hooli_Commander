@@ -32,7 +32,8 @@ dialog {
   border: 1px solid rgba(141, 211, 236, 1);
   gap: 20px;
   animation-fill-mode: forwards;
-  animation: dialog-animation 0.9s;
+  animation: dialog-animation 0.5s;
+  box-shadow: 0 0 25px 0 rgb(0, 0, 0, 0.5);
 }
 
 dialog div {

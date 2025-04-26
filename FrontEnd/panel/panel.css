@@ -57,16 +57,13 @@ thead {
 }
 
 .panel__path {
-  background-color: rgba(217, 238, 251, 1);
   display: flex;
   align-items: center;
   font-size: 18px;
-  border-radius: 5px;
-  border: 2px solid rgba(141, 211, 236, 1);
-  padding: 5px;
+  padding: 5px 5px 0px 5px;
   white-space: nowrap;
   min-width: fit-content;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .panel__path-wrap {
@@ -74,6 +71,10 @@ thead {
   overflow-x: auto;
   overflow-y: hidden;
   flex-wrap: nowrap;
+  padding: 5px 5px 6px 5px;
+  border: 2px solid rgba(141, 211, 236, 1);
+  border-radius: 10px;
+  background-color: rgba(217, 238, 251, 1);
 }
 
 .disk-button_selected {
@@ -137,7 +138,7 @@ tr:hover {
 }
 
 .row_file td:first-child::before {
-  content: url(/FrontEnd/img/file.png);
+  content: url(../img/file.png);
   margin-right: 10px;
   margin-left: 5px;
   position: relative;
@@ -145,7 +146,7 @@ tr:hover {
 }
 
 .row_directory td:first-child::before {
-  content: url(/FrontEnd/img/folder.png);
+  content: url(../img/folder.png);
   margin-right: 5px;
   position: relative;
   top: 2px;
@@ -168,4 +169,8 @@ tr:hover {
   width: 100%;
   gap: 20px;
   padding: 10px;
+}
+
+.panel__path-wrap::-webkit-scrollbar {
+  border-bottom: none;
 }
