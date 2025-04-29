@@ -1,6 +1,6 @@
 import { AppModel } from './app-model.js';
 import { AppView } from './app-view.js';
-
+import { Dialog } from '../dialog/dialog.js';
 export class AppController {
   constructor() {
     this.model = new AppModel();
@@ -14,6 +14,8 @@ export class AppController {
   }
 
   onKeyDown(event) {
+    if (Dialog.isDialogOpen()) return;
+
     if (event.code === 'Tab') {
       event.preventDefault();
       this.switchActivePanel();

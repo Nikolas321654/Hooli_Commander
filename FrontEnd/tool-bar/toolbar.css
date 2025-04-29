@@ -2,27 +2,55 @@
   height: 60px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: rgba(217, 238, 251, 1);
   padding: 0 10px;
   position: relative;
 }
 
-.arrows_block {
+.tool-bar__main {
   display: flex;
   gap: 23px;
-  position: absolute;
   left: 10px;
 }
-.arrow {
+
+.disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.tool-bar__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 31px;
+  width: 31px;
+  transition: all 200ms;
+  border-radius: 5px;
   background-color: transparent;
 }
-.arrow_left {
+
+.arrow_right {
   transform: rotate(180deg);
 }
+
 .logo {
   height: 100px;
   background-color: transparent;
-  display: flex;
+}
+
+.tool-bar__button:not(.disabled):hover {
+  transition: none;
+  border: 2px solid rgba(141, 211, 236, 1);
+}
+
+.info-button {
+  background-color: rgba(217, 238, 251, 1);
+  font-size: 25px;
+  border: 2px solid rgb(28, 122, 156);
+}
+
+.info-button:hover {
+  background-color: rgba(217, 238, 251, 1) !important;
 }

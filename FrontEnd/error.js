@@ -1,17 +1,17 @@
 export class NotFoundError extends Error {
   constructor() {
-    super('Не знайдено');
+    super('Not found');
   }
 }
 
 export class AccessDeniedError extends Error {
   constructor() {
-    super('Доступ заборонено');
+    super('Access denied');
   }
 }
 
 export class UnknownError extends Error {
   constructor() {
-    super('Невідома помилка');
+    super('Unknown error');
   }
 }

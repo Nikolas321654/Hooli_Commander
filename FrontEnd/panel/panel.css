@@ -59,7 +59,7 @@ thead {
 .panel__path {
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 20px;
   padding: 5px 5px 0px 5px;
   white-space: nowrap;
   min-width: fit-content;

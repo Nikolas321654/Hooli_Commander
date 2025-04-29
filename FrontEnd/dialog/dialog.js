@@ -1,26 +1,34 @@
-export function showDialog(message) {
-  const dialogBlock = document.createElement('dialog');
-  dialogBlock.innerHTML = `
-      <div>
-        <p>${message}</p>
-        <button class="dialog-close">Закрити</button>
-      </div>
-    `;
-  document.body.append(dialogBlock);
-  const closeButton = dialogBlock.querySelector('.dialog-close');
+export class Dialog {
+  showDialog(title, message) {
+    const dialogBlock = document.createElement('dialog');
+    dialogBlock.innerHTML = `
+        <div>
+          <p class="dialog-title">${title}</p>
+          <div class="dialog_text-block">${message}</div>
+          <button class="dialog-close">Close</button>
+        </div>
+      `;
+    document.body.append(dialogBlock);
+    const closeButton = dialogBlock.querySelector('.dialog-close');
 
-  closeButton.addEventListener('click', () => {
-    dialogBlock.close();
-    dialogBlock.remove();
-  });
-
-  closeButton.addEventListener('keydown', (event) => {
-    event.stopPropagation();
-    if (event.code === 'Enter') {
+    const closeDialog = () => {
       dialogBlock.close();
       dialogBlock.remove();
-    }
-  });
+    };
+    closeButton.addEventListener('click', closeDialog);
 
-  dialogBlock.showModal();
+    dialogBlock.addEventListener('keydown', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      if (event.code === 'Enter') {
+        closeDialog();
+      }
+    });
+
+    dialogBlock.showModal();
+  }
+
+  static isDialogOpen() {
+    return !!document.querySelector('dialog');
+  }
 }

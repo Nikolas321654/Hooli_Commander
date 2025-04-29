@@ -1,6 +1,6 @@
 import { PanelModel } from './panel-model.js';
 import { PanelView } from './panel-view.js';
-import { showDialog } from '../dialog/dialog.js';
+import { Dialog } from '../dialog/dialog.js';
 
 export class PanelController {
   constructor(index) {
@@ -53,7 +53,8 @@ export class PanelController {
       this.updateView();
       this.setCurrentItem(parentDir);
     } catch (error) {
-      showDialog(error.message);
+      const dialog = new Dialog();
+      dialog.showDialog('Error', error.message);
     }
   }
 
