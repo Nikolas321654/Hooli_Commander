@@ -1,8 +1,11 @@
 import { AppModel } from './app-model.js';
 import { AppView } from './app-view.js';
 import { Dialog } from '../dialog/dialog.js';
+import { ToolBarController } from '../tool-bar/tool-bar-controller.js';
+
 export class AppController {
   constructor() {
+    this.toolBar = new ToolBarController();
     this.model = new AppModel();
     this.view = new AppView();
     this.init();

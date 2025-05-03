@@ -7,6 +7,9 @@
   background-color: rgba(217, 238, 251, 1);
   padding: 0 10px;
   position: relative;
+  background-image: url('../img/logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .tool-bar__main {
@@ -33,11 +36,6 @@
 
 .arrow_right {
   transform: rotate(180deg);
-}
-
-.logo {
-  height: 100px;
-  background-color: transparent;
 }
 
 .tool-bar__button:not(.disabled):hover {
