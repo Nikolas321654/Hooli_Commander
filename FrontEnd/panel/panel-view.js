@@ -102,6 +102,10 @@ export class PanelView {
   }
 
   renderDisks(disks) {
+    if (disks[0] === '/') {
+      this.panelDisks.style.display = 'none';
+      return;
+    }
     this.panelDisks.innerHTML = '';
     for (let i = 0; i < disks.length; i++) {
       const disk = disks[i];
@@ -159,7 +163,7 @@ export class PanelView {
   }
 
   renderPath(path) {
-    this.pathElement.textContent = path.join('/');
+    this.pathElement.textContent = path.join('/').replace('//', '/');
     this.path = path;
     this.scrollPath();
   }
@@ -181,8 +185,10 @@ export class PanelView {
     });
 
     this.buttonRoot.addEventListener('click', () => {
-      const index = +this.panelDisks.querySelector('.disk-button_selected')
-        .dataset.index;
+      const selectedButton = this.panelDisks.querySelector(
+        '.disk-button_selected'
+      );
+      const index = selectedButton ? +selectedButton.dataset.index : 0;
       this.emit('rootClick', index);
     });
 

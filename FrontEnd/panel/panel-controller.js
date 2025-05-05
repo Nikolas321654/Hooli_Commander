@@ -24,7 +24,9 @@ export class PanelController {
   }
 
   renderDiskContent() {
-    this.view.renderSelectedDisk(this.model.currentDiskIndex);
+    if (this.model.disks[0] !== '/') {
+      this.view.renderSelectedDisk(this.model.currentDiskIndex);
+    }
     this.updateView();
   }
 

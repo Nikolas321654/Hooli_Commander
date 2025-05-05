@@ -1,9 +1,17 @@
 const diskInfo = require('node-disk-info');
 const path = require('path');
+const os = require('os');
 const fs = require('fs').promises;
 
 async function getDisks() {
-  return (await diskInfo.getDiskInfo()).map((disk) => disk.mounted);
+  const platform = os.type();
+  if (platform === 'Windows_NT') {
+    return (await diskInfo.getDiskInfo()).map((disk) => disk.mounted);
+  }
+  if (platform === 'Linux') {
+    return ['/'];
+  }
+  return [];
 }
 
 async function getDir(dirPath) {
