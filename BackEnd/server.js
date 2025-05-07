@@ -1,7 +1,6 @@
 const http = require('http');
-const url = require('url');
-require('dotenv').config();
-const { getDisks, getDir } = require('./modules/fs');
+const { handleError } = require('./errors.js');
+const { routing } = require('./router.js');
 const port = process.env.PORT || 3000;
 
 http
@@ -12,38 +11,11 @@ http
       'GET, POST, PUT, DELETE, OPTIONS'
     );
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'GET' && req.url === '/disks') {
-      try {
-        const disks = await getDisks();
-        res.end(JSON.stringify(disks));
-        return;
-      } catch (error) {
-        console.error(error);
-        res.statusCode = 500;
-        res.end(error.message);
-        return;
-      }
-    }
-
-    if (req.method === 'GET' && req.url.startsWith('/dir')) {
-      try {
-        const path = url.parse(req.url, true).query.path;
-        const data = await getDir(path);
-        res.end(JSON.stringify(data));
-      } catch (error) {
-        console.error(error);
-        if (error.code === 'ENOENT') {
-          res.statusCode = 404;
-          res.end('Not found');
-        } else if (error.code === 'EACCES' || error.code === 'EPERM') {
-          res.statusCode = 403;
-          res.end('Access denied');
-        } else {
-          res.statusCode = 500;
-          res.end('Unknown error');
-        }
-      }
+    try {
+      res.end(JSON.stringify(await routing(req)));
+    } catch (error) {
+      console.error(error);
+      handleError(error, res);
     }
   })
   .listen(port, () => {
