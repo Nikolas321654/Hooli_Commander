@@ -1,6 +1,6 @@
 const http = require('http');
-const { handleError } = require('./errors.js');
-const { routing } = require('./router.js');
+const { handleError } = require('./modules/errors.js');
+const { routing } = require('./modules/router.js');
 const port = process.env.PORT || 3000;
 
 http

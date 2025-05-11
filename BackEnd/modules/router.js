@@ -1,4 +1,4 @@
-import { getDisks, getDir } from './modules/fs.js';
+import { getDisks, getDir } from './fs.js';
 import { parse } from 'url';
 
 export async function routing(req) {

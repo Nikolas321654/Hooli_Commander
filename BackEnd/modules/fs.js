@@ -8,10 +8,7 @@ async function getDisks() {
   if (platform === 'Windows_NT') {
     return (await diskInfo.getDiskInfo()).map((disk) => disk.mounted);
   }
-  if (platform === 'Linux') {
-    return ['/'];
-  }
-  return [];
+  return ['/'];
 }
 
 async function getDir(dirPath) {

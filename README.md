@@ -1,6 +1,6 @@
 # Hooli Commander
 
-**Hooli Commander** is a university project that demonstrates the principles of clean architecture, design patterns, and component-based development using only **vanilla JavaScript**, **HTML**, and **CSS**. The backend runs on **Node.js**, and the project showcases a custom-built file manager with a two-panel layout, dynamic rendering, and modular logic organization.
+**Hooli Commander** is a cross-platform university project that demonstrates the principles of clean architecture, design patterns, and component-based development using only **vanilla JavaScript**, **HTML**, and **CSS**. The backend runs on **Node.js**, and the project showcases a custom-built file manager with a two-panel layout, dynamic rendering, and modular logic organization.
 
 ---
 
